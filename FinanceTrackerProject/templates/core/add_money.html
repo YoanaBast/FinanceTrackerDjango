@@ -1,0 +1,69 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}Add Income{% endblock %}
+
+{% block content %}
+
+<!-- PAGE META (JS reads this) -->
+<div id="page-meta"
+     data-page-type="income"
+     data-add-category-url="{% url 'add_category' %}">
+
+<h1>Add Income</h1>
+
+<form method="POST" id="add-income-form">
+    {% csrf_token %}
+
+    <label>
+        Category:
+        {{ form.category }}
+        {% if form.category.errors %}
+            <div class="error">{{ form.category.errors|first }}</div>
+        {% endif %}
+    </label>
+    <button type="button" id="show-add-category">+ Add Category</button>
+    <br>
+
+    <label>
+        Amount:
+        {{ form.amount }}
+        {% if form.amount.errors %}
+            <div class="error">{{ form.amount.errors|first }}</div>
+        {% endif %}
+    </label><br>
+
+    <label>
+        Currency:
+        {{ form.currency }}
+        {% if form.currency.errors %}
+            <div class="error">{{ form.currency.errors|first }}</div>
+        {% endif %}
+    </label><br><br>
+
+    <button type="submit">Add Money</button>
+
+    <a href="{% url 'dashboard' %}">
+        <button type="button">Back</button>
+    </a>
+</form>
+
+<!-- Inline Category Form -->
+<div id="add-category-container" style="display:none; margin-top: 10px;">
+    <h3>Add New Category</h3>
+
+    <form id="add-category-form">
+        {% csrf_token %}
+        <input type="text" id="category-name" placeholder="New category">
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+</div> <!-- END META WRAPPER -->
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/category.js' %}"></script>
+{% endblock %}
+
+

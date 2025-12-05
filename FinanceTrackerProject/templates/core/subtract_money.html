@@ -1,0 +1,60 @@
+{% extends "common/base.html" %}
+{% load static %}
+{% block title %}Subtract Money{% endblock %}
+
+{% block content %}
+<!-- Page meta for JS -->
+<div id="page-meta" data-page-type="expense" data-add-category-url="{% url 'add_category' %}"></div>
+
+<h1>Subtract Money</h1>
+
+<form method="POST" id="subtract-money-form">
+    {% csrf_token %}
+
+    <label>
+        Category:
+        {{ form.category }}
+        {% if form.category.errors %}
+            <div class="error">{{ form.category.errors|first }}</div>
+        {% endif %}
+    </label>
+    <button type="button" id="show-add-category">+ Add Category</button>
+    <br>
+
+    <label>
+        Amount:
+        {{ form.amount }}
+        {% if form.amount.errors %}
+            <div class="error">{{ form.amount.errors|first }}</div>
+        {% endif %}
+    </label><br>
+
+    <label>
+        Currency:
+        {{ form.currency }}
+        {% if form.currency.errors %}
+            <div class="error">{{ form.currency.errors|first }}</div>
+        {% endif %}
+    </label><br><br>
+
+    <button type="submit">Subtract Money</button>
+    <a href="{% url 'dashboard' %}">
+        <button type="button">Back</button>
+    </a>
+</form>
+
+<!-- Inline Add Category Form (hidden initially) -->
+<div id="add-category-container" style="display:none; margin-top: 10px;">
+    <h3>Add New Category</h3>
+    <form id="add-category-form" data-url="{% url 'add_category' %}" data-type="expense">
+        {% csrf_token %}
+        <input type="text" name="name" id="category-name" placeholder="New category">
+        <button type="submit">Add</button>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/category.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,32 @@
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.main-form {
+    min-width: 300px;
+    flex: 1 1 300px;
+}
+
+.category-form {
+    display: none; /* hidden initially */
+    min-width: 200px;
+    flex: 0 1 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.category-input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* Responsive for small screens */
+@media (max-width: 600px) {
+    .form-container {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,29 @@
+{% extends "common/base.html" %}
+
+{% block title %}Start Tracking Your Finances{% endblock %}
+
+{% block content %}
+<h1>Start Tracking Your Finances</h1>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <label>
+        Default Currency:
+        {{ form.default_currency }}
+        {% if form.default_currency.errors %}
+            <div class="error">{{ form.default_currency.errors|first }}</div>
+        {% endif %}
+    </label><br>
+
+    <label>
+        Starting Amount:
+        {{ form.starting_amount }}
+        {% if form.starting_amount.errors %}
+            <div class="error">{{ form.starting_amount.errors|first }}</div>
+        {% endif %}
+    </label><br><br>
+
+    <button type="submit">Start Tracking</button>
+</form>
+{% endblock %}

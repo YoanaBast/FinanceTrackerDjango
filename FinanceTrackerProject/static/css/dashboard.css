@@ -1,0 +1,119 @@
+/* dashboard.css */
+
+/* Summary, By Category, Manage Balance headings */
+.dashboard section h2, .dashboard section h3 {
+    color: #5dade2; /* light blue */
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+/* Total Income, Total Expenses, Balance values */
+.dashboard p {
+    font-weight: bold;
+    color: #1f3a93; /* dark blue */
+    font-size: 1.2em;
+    margin: 0.3em 0;
+}
+
+#filter-form .date-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+#filter-form .date-range .arrow {
+    display: inline-block;
+    height: 2px;            /* line thickness */
+    background-color: #3498db;
+    flex-grow: 1;            /* stretches the arrow line */
+    position: relative;
+}
+
+/* Optional arrowhead at the right end */
+#filter-form .date-range .arrow::after {
+    content: '▶';            /* arrowhead */
+    position: absolute;
+    right: 0;
+    top: -6px;               /* vertical alignment */
+    font-size: 16px;
+    color: #3498db;
+}
+/* Category lists */
+.dashboard ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.dashboard ul li {
+    margin: 0.3em 0;
+}
+.arrow-container {
+    display: flex;
+    align-items: center;
+    width: 100px;        /* arrow length */
+    margin: 0 0.5em;
+    position: relative;  /* needed for absolute positioning of difference */
+}
+
+.arrow-line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #3498db;
+}
+
+.arrow-head {
+    margin-left: 0.2em;
+    color: #3498db;
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* Difference text over arrow */
+.arrow-container .difference {
+    position: absolute;
+    top: -1.5em;          /* above the arrow line */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #3498db;
+    font-weight: bold;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+
+.category-totals {
+    display: flex;
+    gap: 2em; /* space between columns */
+    align-items: flex-start;
+}
+
+.category-totals .income-column,
+.category-totals .expenses-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0.5em;
+}
+
+.category-totals ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.income-list li {
+    color: #1f3a93; /* dark blue */
+}
+
+.expenses-list li {
+    color: #1f3a93; /* red */
+}
+
+.balance-line {
+    font-weight: bold;
+    color: #038cfc; /* dark blue */
+    font-size: 1.2em; /* slightly bigger */
+}

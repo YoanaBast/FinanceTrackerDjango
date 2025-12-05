@@ -1,0 +1,82 @@
+{% extends "common/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+
+<div class="dashboard">
+    {% if user.userprofile %}
+
+         <section class="summary">
+        <form method="get" id="currency-form">
+            <label for="currency">Display currency:</label>
+            <select name="currency" id="currency" onchange="this.form.submit()">
+                {% for code, name in CURRENCY_CHOICES %}
+                    <option value="{{ code }}" {% if code == currency %}selected{% endif %}>
+                        {{ code }} - {{ name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </form>
+        <p>Total Income: {{ total_income }}</p>
+        <p>Total Expenses: {{ total_expenses }}</p>
+        <p class="balance-line">Balance: {{ balance }}</p>
+
+
+            <form method="get" id="filter-form">
+                <div class="date-range">
+                    <label>From: <input type="date" name="start_date" value="{{ request.GET.start_date }}"></label>
+
+                    <div class="arrow-container">
+                        <span class="difference">{{ difference }}</span>
+                        <span class="arrow-line"></span>
+                        <span class="arrow-head">▶</span>
+                    </div>
+
+                    <label>To: <input type="date" name="end_date" value="{{ request.GET.end_date }}"></label>
+                </div>
+                <button type="submit">Filter</button>
+            </form>
+            <div class="category-totals">
+                <div class="income-column">
+                    <p class="column-title">Income: {{ income }}</p>
+                    <ul class="income-list">
+                        {% for cat, amount in category_incomes.items %}
+                            <li>{{ cat }}: {{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="expenses-column">
+                    <p class="column-title">Expenses: {{ expenses }}</p>
+                    <ul class="expenses-list">
+                        {% for cat, amount in category_expenses.items %}
+                            <li>{{ cat }}: {{ amount }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+         </section>
+    <section class="actions">
+    <h2>Manage Balance</h2>
+    <form action="{% url 'add_money' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+
+        <button type="submit">Add Money</button>
+    </form>
+
+    <form action="{% url 'subtract_money' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Subtract Money</button>
+    </form>
+</section>
+    {% else %}
+        <section class="start-tracking">
+            <p>You haven’t started tracking your finances yet.
+               <a href="{% url 'create_plan' %}">Start Tracking Your Finances</a></p>
+        </section>
+    {% endif %}
+</div>
+{% endblock %}
